@@ -1,5 +1,5 @@
 (defproject robots "1.0.0-SNAPSHOT"
-  :description "FIXME: write"
+  :description "Clojure Robots"
   :dependencies [[org.clojure/clojure "1.2.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
 		 [robocode "1.7.0.2"]]
