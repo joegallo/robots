@@ -8,9 +8,23 @@
 (System/setProperty "NOSECURITY" "true")
 (System/setProperty "ROBOTPATH" "classes")
 
-;; TODO add your robot here
-(compile 'robots.fatrobot)
-;; (compile 'your.robot.here)
+(def ns-prefix (aget (.split (str *ns*) "\\.") 0))
+
+(defn compile-robot
+  "Compiles a robot in the named clojure file."
+  [name]
+  (compile (symbol (str ns-prefix "." (.replaceAll name ".clj" "")))))
+
+(defn find-robots []
+  (->> (seq (.listFiles (File. (str "src/" ns-prefix))))
+       (map #(.getName %))
+       (filter #(and (.endsWith % ".clj")
+                     (not (.startsWith % "."))))))
+
+;; at runtime, aot all the clojure files in this namespace (ideally,
+;; just the robots)
+(doseq [robot (find-robots)]
+  (compile-robot robot))
 
 (defn battle-console []
   (proxy [BattleAdaptor] []
