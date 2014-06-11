@@ -7,7 +7,7 @@
 ;; nosecurity allows clojure robots to work, robotpath tells robocode
 ;; where our clojure robots are located
 (System/setProperty "NOSECURITY" "true")
-(System/setProperty "ROBOTPATH" "classes")
+(System/setProperty "ROBOTPATH" "target/classes")
 
 (defn battle-console []
   (proxy [BattleAdaptor] []
