@@ -1,7 +1,8 @@
 (ns robots.core
-  (:import [java.io File]
-           [robocode.control RobocodeEngine BattlefieldSpecification BattleSpecification]
-           [robocode.control.events BattleAdaptor]))
+  (:import (java.io File)
+           (robocode.control BattleSpecification BattlefieldSpecification
+                             RobocodeEngine)
+           (robocode.control.events BattleAdaptor)))
 
 ;; nosecurity allows clojure robots to work, robotpath tells robocode
 ;; where our clojure robots are located
@@ -13,10 +14,10 @@
     (onBattleMessage [e] (println "Msg> " (.getMessage e)))
     (onBattleError [e] (println "Err> " (.getError e)))
     (onBattleCompleted
-     [e]
-     (println "\n\n-- Battle Complete --\n")
-     (doseq [result (.getSortedResults e)]
-       (println (.getTeamLeaderName result) (.getScore result))))))
+      [e]
+      (println "\n\n-- Battle Complete --\n")
+      (doseq [result (.getSortedResults e)]
+        (println (.getTeamLeaderName result) (.getScore result))))))
 
 (defn make-engine []
   (doto (RobocodeEngine.)
