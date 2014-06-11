@@ -23,22 +23,19 @@
   (doto (RobocodeEngine.)
     (.addBattleListener (battle-console))))
 
-(def engine (make-engine))
-
-(defn make-robots [robots]
+(defn make-robots [engine robots]
   (for [robot robots]
     (first (.getLocalRepository engine (str robot)))))
 
 (defn make-battle [rounds [x y] robots]
-  (BattleSpecification.
-   rounds
-   (BattlefieldSpecification. x y)
-   (into-array robots)))
+  (BattleSpecification. rounds
+                        (BattlefieldSpecification. x y)
+                        (into-array robots)))
 
 (defn run-battle
-  ([rounds size robots]
+  ([engine battle]
      (.setVisible engine true)
-     (.runBattle engine (make-battle rounds size robots) true)))
+     (.runBattle engine battle true)))
 
 (defn compile* [& libs]
   (doseq [lib libs]
@@ -46,4 +43,8 @@
 
 (defn fight [& robots]
   (apply compile* robots)
-  (run-battle 3 [800 600] (make-robots robots)))
+  (with-open [engine (make-engine)]
+    (run-battle engine
+                (make-battle 3
+                             [800 600]
+                             (make-robots engine robots)))))
