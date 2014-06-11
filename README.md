@@ -7,5 +7,5 @@ the day. Don't judge me. ;)
 
 ## Running
 
-I guess you can probably run this with `lein run robots.core/fight
+I guess you can probably run this with `lein run -m robots.core/fight
 robots.fatrobot robots.fatrobot`.
