@@ -23,11 +23,11 @@
   (doto (RobocodeEngine.)
     (.addBattleListener (battle-console))))
 
-(def *engine* (make-engine))
+(def engine (make-engine))
 
 (defn make-robots [robots]
   (for [robot robots]
-    (first (.getLocalRepository *engine* (str robot)))))
+    (first (.getLocalRepository engine (str robot)))))
 
 (defn make-battle [rounds [x y] robots]
   (BattleSpecification.
@@ -37,8 +37,8 @@
 
 (defn run-battle
   ([rounds size robots]
-     (.setVisible *engine* true)
-     (.runBattle *engine* (make-battle rounds size robots) true)))
+     (.setVisible engine true)
+     (.runBattle engine (make-battle rounds size robots) true)))
 
 (defn compile* [& libs]
   (doseq [lib libs]
